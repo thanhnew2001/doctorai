@@ -61,8 +61,7 @@ def generate_code():
     max_length = int(request.args.get('max_length', 50))  # Convert max_length to integer
 
     # Split the prompts into individual sentences based on your defined structure
-    sentences = prompts.split('Here is the corrected version:')  # Assuming a specific format for splitting
-
+    sentences = prompts
     corrected_sentences = []
     for sentence in sentences:
         if sentence:  # Check if sentence is not empty
@@ -74,7 +73,7 @@ def generate_code():
             corrected_sentences.append(corrected_sentence)
 
     # Return list of corrected sentences, adhering to the max_length parameter if necessary
-    return jsonify([corrected_sentences])
+    return jsonify(corrected_sentences)
 
 # Run Flask app
 if __name__ == '__main__':
