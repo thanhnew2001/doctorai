@@ -53,26 +53,21 @@ def correct_grammar_bulk():
     # Return list of corrected sentences
     return jsonify({'corrected_sentences': corrected_sentences})
 
-# New route for generating corrected sentences based on prompts
 @app.route('/generate_code', methods=['GET'])
 def generate_code():
-    # Get prompts from request
-    prompts = request.args.get('prompts', '')
-    max_length = int(request.args.get('max_length', 50))  # Convert max_length to integer
+    # Get multiple prompts from request
+    prompts = request.args.getlist('prompts')  # This will get a list of all 'prompts' in the query string
 
-    # Split the prompts into individual sentences based on your defined structure
-    sentences = prompts
     corrected_sentences = []
-    for sentence in sentences:
-        if sentence:  # Check if sentence is not empty
-            # Add prefix required by the HappyTextToText model
-            prefixed_sentence = "grammar: " + sentence.strip()  # Remove leading/trailing whitespace
-            # Generate corrected sentence
-            result = happy_tt.generate_text(prefixed_sentence, args=args)
-            corrected_sentence = result.text
-            corrected_sentences.append(corrected_sentence)
+    for prompt in prompts:
+        # Assume each prompt needs to be prefixed before sending to the model
+        prefixed_sentence = "grammar: " + prompt
+        # Generate corrected sentence
+        result = happy_tt.generate_text(prefixed_sentence, args=args)
+        corrected_sentence = result.text
+        corrected_sentences.append(corrected_sentence)
 
-    # Return list of corrected sentences, adhering to the max_length parameter if necessary
+    # Return corrected sentences
     return jsonify(corrected_sentences)
 
 # Run Flask app
