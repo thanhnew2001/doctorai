@@ -60,9 +60,12 @@ def generate_code():
 
     corrected_sentences = []
     for prompt in prompts:
-        print(prompt)
-        # Assume each prompt needs to be prefixed before sending to the model
-        prefixed_sentence = "grammar: " + prompt
+        # Remove the specific leading text from the prompt
+        cleaned_prompt = prompt.replace("Correct english in the following text, do not add any punctuation or extra text.", "").strip()
+        
+        print(cleaned_prompt)
+        # Prefix the cleaned prompt before sending to the model
+        prefixed_sentence = "grammar: " + cleaned_prompt
         # Generate corrected sentence
         result = happy_tt.generate_text(prefixed_sentence, args=args)
         corrected_sentence = result.text
@@ -72,6 +75,7 @@ def generate_code():
     # Return corrected sentences
     print(corrected_sentences)
     return jsonify(corrected_sentences)
+
 
 # Run Flask app
 if __name__ == '__main__':
