@@ -60,6 +60,7 @@ def generate_code():
 
     corrected_sentences = []
     for prompt in prompts:
+        print(prompt)
         # Remove the specific leading text from the prompt and strip whitespace
         cleaned_prompt = prompt.replace("Correct english in the following text, do not add any punctuation or extra text.", "").strip()
         
@@ -68,6 +69,7 @@ def generate_code():
         # Generate corrected sentence
         result = happy_tt.generate_text(prefixed_sentence, args=args)
         corrected_sentence = result.text.strip()
+        print(corrected_sentence)
         corrected_sentences.append(corrected_sentence)
 
     print(corrected_sentences)
