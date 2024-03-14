@@ -25,7 +25,7 @@ def correct_grammar():
 
     # Generate corrected sentence
     result = happy_tt.generate_text(prefixed_sentence, args=args)
-    corrected_sentence = result.text
+    corrected_sentence = result.text.strip()
 
     # Return corrected sentence
     return jsonify({'corrected_sentence': corrected_sentence})
@@ -47,7 +47,7 @@ def correct_grammar_bulk():
         prefixed_sentence = "grammar: " + sentence
         # Generate corrected sentence
         result = happy_tt.generate_text(prefixed_sentence, args=args)
-        corrected_sentence = result.text
+        corrected_sentence = result.text.strip()
         corrected_sentences.append(corrected_sentence)
 
     # Return list of corrected sentences
@@ -60,20 +60,18 @@ def generate_code():
 
     corrected_sentences = []
     for prompt in prompts:
-        # Remove the specific leading text from the prompt
+        # Remove the specific leading text from the prompt and strip whitespace
         cleaned_prompt = prompt.replace("Correct english in the following text, do not add any punctuation or extra text.", "").strip()
         
-        print(cleaned_prompt)
         # Prefix the cleaned prompt before sending to the model
         prefixed_sentence = "grammar: " + cleaned_prompt
         # Generate corrected sentence
         result = happy_tt.generate_text(prefixed_sentence, args=args)
-        corrected_sentence = result.text
-        print(corrected_sentence)
+        corrected_sentence = result.text.strip()
         corrected_sentences.append(corrected_sentence)
 
-    # Return corrected sentences
     print(corrected_sentences)
+    # Return corrected sentences
     return jsonify(corrected_sentences)
 
 
