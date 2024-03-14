@@ -2,6 +2,8 @@
 # Import necessary libraries
 from flask import Flask, request, jsonify
 from hf_hub_ctranslate2 import GeneratorCT2fromHfHub
+from transformers import AutoTokenizer
+
 
 # Initialize Flask app
 app = Flask(__name__)
