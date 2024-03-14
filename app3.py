@@ -27,10 +27,9 @@ def generate_code():
     # Get prompts from request
     prompts = request.args.getlist('prompts')
 
-    corrected_sentences = []
     for prompt in prompts:              
         # Generate corrected sentences using the model
-        outputs = model.generate(text=[prefixed_sentence], max_length=64, include_prompt_in_result=False)
+        outputs = model.generate(text=[prompts], max_length=64, include_prompt_in_result=False)
 
     # Return corrected sentences as a list
     return jsonify(outputs)
