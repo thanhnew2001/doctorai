@@ -8,17 +8,12 @@ from transformers import AutoTokenizer
 # Initialize Flask app
 app = Flask(__name__)
 
-# from transformers import AutoTokenizer
-model_name = "michaelfeil/ct2fast-phi-1_5"
-
-
-from hf_hub_ctranslate2 import GeneratorCT2fromHfHub
+model_name = "michaelfeil/ct2fast-dolly-v2-12b"
 model = GeneratorCT2fromHfHub(
         # load in int8 on CUDA
-        model_name_or_path=model_name,
+        model_name_or_path=model_name, 
         device="cuda",
-        compute_type="int8_float16",
-        # tokenizer=AutoTokenizer.from_pretrained("{ORG}/{NAME}")
+        compute_type="int8_float16"
 )
 
 # Define the route for generating corrected code
